@@ -3,12 +3,13 @@ package main
 import (
 	"net/http"
 
-	"github.com/otakakot/playground-cloudflare/internal/function"
 	"github.com/syumai/workers"
+
+	"github.com/otakakot/playground-cloudflare/internal/function"
 )
 
 func main() {
-	http.HandleFunc("/hello", function.Hello)
+	http.HandleFunc("/health", function.Health)
 
 	http.HandleFunc("/echo", function.Echo)
 
