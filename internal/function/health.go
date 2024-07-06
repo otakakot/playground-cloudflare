@@ -2,14 +2,15 @@ package function
 
 import (
 	"context"
+	"database/sql"
 	"net/http"
 	"os"
 
-	"github.com/jackc/pgx/v5/pgxpool"
+	_ "github.com/lib/pq"
 )
 
 func Health(w http.ResponseWriter, req *http.Request) {
-	if _, err := GetPool(req.Context(), GetDSN()); err != nil {
+	if _, err := GetDB(req.Context(), GetDSN()); err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 
 		return
@@ -22,23 +23,18 @@ func GetDSN() string {
 	return "user=" + os.Getenv("POSTGRES_USER") + " password=" + os.Getenv("POSTGRES_PASSWORD") + " host=" + os.Getenv("POSTGRES_HOST") + " port=" + os.Getenv("POSTGRES_PORT") + " dbname=" + os.Getenv("POSTGRES_DATABASE")
 }
 
-func GetPool(
+func GetDB(
 	ctx context.Context,
 	dsn string,
-) (*pgxpool.Pool, error) {
-	conn, err := pgxpool.ParseConfig(dsn)
+) (*sql.DB, error) {
+	db, err := sql.Open("postgres", dsn)
 	if err != nil {
 		return nil, err
 	}
 
-	pool, err := pgxpool.NewWithConfig(ctx, conn)
-	if err != nil {
+	if db.Ping() != nil {
 		return nil, err
 	}
 
-	if err := pool.Ping(ctx); err != nil {
-		return nil, err
-	}
-
-	return pool, nil
+	return db, nil
 }
