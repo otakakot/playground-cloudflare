@@ -11,7 +11,5 @@ import (
 func main() {
 	http.HandleFunc("/health", function.Health)
 
-	http.HandleFunc("/echo", function.Echo)
-
 	workers.Serve(nil) // use http.DefaultServeMux
 }
