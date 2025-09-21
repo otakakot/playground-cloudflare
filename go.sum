@@ -1,4 +1,2 @@
-github.com/lib/pq v1.10.9 h1:YXG7RB+JIjhP29X+OtkiDnYaXQwpS4JEWq7dtCCRUEw=
-github.com/lib/pq v1.10.9/go.mod h1:AlVN5x4E4T544tWzH6hKfbfQvm3HdbOxrmggDNAPY9o=
 github.com/syumai/workers v0.22.0 h1:jR3RQ5q4qKF7ekVOS4wyir+rf0elC5JDdH3MUocd354=
 github.com/syumai/workers v0.22.0/go.mod h1:ZnqmdiHNBrbxOLrZ/HJ5jzHy6af9cmiNZk10R9NrIEA=
